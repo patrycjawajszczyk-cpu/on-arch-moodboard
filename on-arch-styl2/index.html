@@ -276,7 +276,15 @@ document.getElementById("btn-analyze").onclick=async function(){
       body:JSON.stringify({images:compressed,count:files.length})
     });
     var data=await resp.json();
-    if(!resp.ok) throw new Error(data&&data.error?data.error:"HTTP "+resp.status);
+    if(!resp.ok){
+      var errMsg="HTTP "+resp.status;
+      if(data&&data.error){
+        if(typeof data.error==="string") errMsg=data.error;
+        else if(data.error.message) errMsg=data.error.message;
+        else errMsg=JSON.stringify(data.error);
+      }
+      throw new Error(errMsg);
+    }
 
     var text=data.content.map(function(b){return b.text||"";}).join("");
 
