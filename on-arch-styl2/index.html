@@ -11,7 +11,7 @@
 :root{--navy:#1C2B3A;--terra:#AD6B68;--gold:#C9A84C;--cream:#fdf8f4;--border:#e5d9cc}
 body{font-family:"Lato",sans-serif;background:var(--cream);color:var(--navy);min-height:100vh}
 header{position:relative;z-index:10;background:rgba(28,43,58,0.95);backdrop-filter:blur(8px);padding:.8rem 2rem;display:flex;justify-content:space-between;align-items:center}
-.logo-img{height:44px}
+.logo-img{height:60px}
 .hero{position:relative;min-height:540px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:4rem 1.5rem 5rem}
 .hero-bg{position:absolute;inset:0;background-image:url("https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1920&q=80");background-size:cover;background-position:center;filter:brightness(.5)}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(150deg,rgba(28,43,58,.75) 0%,rgba(120,70,60,.45) 100%)}
@@ -317,16 +317,73 @@ document.getElementById("btn-analyze").onclick=async function(){
     var bodyEl=document.getElementById("res-body");
     bodyEl.innerHTML="";
     body.split("\n").forEach(function(line){
-      var clean=line.replace(/\*\*/g,"").replace(/^[-*]\s/,"").trim();
-      if(!clean||clean==="---") return;
-      var p=document.createElement("p");
-      if(line.indexOf("###")===0||line.indexOf("##")===0){
-        p.className="sec";
-        p.textContent=clean.replace(/^#+\s*/,"");
-      } else {
-        p.style.margin="0.18rem 0";
-        p.textContent=clean;
+      var trimmed=line.trim();
+      if(!trimmed||trimmed==="---") return;
+
+      // Section header
+      if(trimmed.indexOf("###")===0||trimmed.indexOf("##")===0){
+        var sec=document.createElement("p");
+        sec.className="sec";
+        sec.textContent=trimmed.replace(/^#+\s*/,"");
+        bodyEl.appendChild(sec);
+        return;
       }
+
+      // Helper: render inline bold and links
+      function renderInline(text, el){
+        // Split on **bold** and http links
+        var parts=text.split(/(\*\*[^*]+\*\*|https?:\/\/[^\s),]+)/g);
+        parts.forEach(function(part){
+          if(part.startsWith("**")&&part.endsWith("**")){
+            var b=document.createElement("strong");
+            b.textContent=part.slice(2,-2);
+            el.appendChild(b);
+          } else if(part.startsWith("http")){
+            var a=document.createElement("a");
+            a.href=part; a.target="_blank"; a.textContent=part;
+            a.style.cssText="color:#AD6B68;font-size:.8em;word-break:break-all";
+            el.appendChild(a);
+          } else if(part){
+            el.appendChild(document.createTextNode(part));
+          }
+        });
+      }
+
+      // Bullet point (- text)
+      if(trimmed.match(/^-\s/)){
+        var li=document.createElement("div");
+        li.style.cssText="display:flex;gap:.6rem;margin:.35rem 0;align-items:flex-start";
+        var dot=document.createElement("span");
+        dot.textContent="\u2736";
+        dot.style.cssText="color:#C9A84C;font-size:.65rem;margin-top:.35rem;flex-shrink:0";
+        var span=document.createElement("span");
+        span.style.cssText="line-height:1.7;flex:1";
+        renderInline(trimmed.slice(2),span);
+        li.appendChild(dot); li.appendChild(span);
+        bodyEl.appendChild(li);
+        return;
+      }
+
+      // Numbered list (1. text)
+      if(trimmed.match(/^\d+\.\s/)){
+        var ni=document.createElement("div");
+        ni.style.cssText="display:flex;gap:.75rem;margin:.4rem 0;align-items:flex-start";
+        var numMatch=trimmed.match(/^(\d+)\.\s(.*)/);
+        var num=document.createElement("span");
+        num.textContent=numMatch[1]+".";
+        num.style.cssText="color:#AD6B68;font-weight:700;font-size:.9rem;flex-shrink:0;min-width:1.4rem";
+        var nspan=document.createElement("span");
+        nspan.style.cssText="line-height:1.7;flex:1";
+        renderInline(numMatch[2],nspan);
+        ni.appendChild(num); ni.appendChild(nspan);
+        bodyEl.appendChild(ni);
+        return;
+      }
+
+      // Regular paragraph
+      var p=document.createElement("p");
+      p.style.margin="0.2rem 0";
+      renderInline(trimmed,p);
       bodyEl.appendChild(p);
     });
 
