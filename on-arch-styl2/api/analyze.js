@@ -10,46 +10,57 @@ export default async function handler(req, res) {
 
   const { images, count } = req.body;
 
-  const prompt = `Jesteś doświadczoną projektantką wnętrz i redaktorką piszącą po polsku dla ON-ARCH Akademia Projektowania. Użytkowniczka przesłała ${count} zdjęcia wnętrz które ją inspirują.
+  const prompt = `Jesteś doświadczoną projektantką wnętrz i redaktorką dla ON-ARCH Akademia Projektowania. Użytkowniczka przesłała ${count} zdjęcia wnętrz które ją inspirują.
 
-ZASADY JĘZYKOWE – BEZWZGLĘDNIE OBOWIĄZUJĄCE:
-- Pisz wyłącznie poprawną, staranną polszczyzną
-- Sprawdź każde słowo przed użyciem – nie używaj słów które nie istnieją (np. "nieperfektyjny" → "niedoskonały", "abstraktyjny" → "abstrakcyjny")
-- Dbaj o poprawność gramatyczną, szczególnie przypadki (np. w wyliczeniach: "drewno orzechowe", "len i bawełna", "ceramika i glina" – mianownik)
-- Unikaj kolokwializmów i potocznych wyrażeń (nie: "poguglaj", "graferkę", "pobawić się" – tak: "poszukaj", "grafikę", "eksperymentować z")
-- Nie wymyślaj słów – jeśli nie jesteś pewna jak coś powiedzieć po polsku, użyj prostszego sformułowania
-- Unikaj nadmiernych zdrobnień i potocyzmów
-- Styl: profesjonalny, ciepły, inspirujący – jak dobry magazyn wnętrzarski (Elle Decoration, Architectural Digest PL)
-- Przed oddaniem tekstu mentalnie przeczytaj go jeszcze raz i popraw wszelkie błędy
+ZASADY JĘZYKOWE – BEZWZGLĘDNE:
+- Wyłącznie poprawna polszczyzna – nie wymyślaj słów
+- NAZWA STYLU: maksymalnie 3 słowa, tylko istniejące polskie słowa, elegancka i prosta. Dobry przykład: "Ciepły Modernizm", "Retro Geometria", "Naturalna Elegancja", "Skandynawski Minimalizm". Zły przykład: "Geometryczna Ciepłota Retro" (ciepłota to nie słowo), "Artystyczny Boho Vintage" (za dużo słów)
+- Styl pisania: profesjonalny, ciepły – jak Elle Decoration lub Architectural Digest
+- Sprawdź każde słowo przed użyciem
 
-Napisz raport w DOKŁADNIE takim formacie (bez gwiazdek i markdown):
+FORMATOWANIE WYNIKÓW – OBOWIĄZUJĄCE:
+- W każdej sekcji z listą używaj myślnika na początku linii: "- element"
+- Najważniejsze słowa w opisach otaczaj podwójnymi gwiazdkami: **słowo kluczowe**
+- W sekcjach z markami i kontami dodawaj URL w nawiasie: Nazwa (https://adres.pl)
+- W krokach używaj numeracji: "1. Zacznij od..."
 
-NAZWA STYLU: [2-4 słowa po polsku – poetycka, elegancka nazwa; unikaj słów które brzmią sztucznie]
-ZNANE NAZWY: [2-4 znane międzynarodowe nazwy po angielsku, oddzielone przecinkami]
-TAGLINE: [jedno zdanie po polsku, max 12 słów, bez przecinka w środku]
+Napisz raport w DOKŁADNIE takim formacie:
+
+NAZWA STYLU: [2-3 słowa, tylko istniejące polskie słowa]
+ZNANE NAZWY: [2-4 nazwy angielskie oddzielone przecinkami]
+TAGLINE: [jedno zdanie, max 12 słów]
 
 ### Co widać w Twoich wyborach
-[3-4 zdania analizujące konkretnie te zdjęcia – kolory, formy, nastrój, co je łączy. Pisz precyzyjnie i konkretnie.]
+[3-4 zdania z **pogrubionymi** kluczowymi obserwacjami dotyczącymi konkretnych zdjęć]
 
 ### Twój styl
-[3-4 zdania opisujące styl tej osoby – ciepło, ale profesjonalnie. Jak ekspertka rozmawiająca z klientką.]
+[3-4 zdania opisujące styl tej osoby, ciepło i profesjonalnie, z **boldem** na kluczowych cechach]
 
 ### Paleta kolorów
-[5-6 kolorów. Format każdej linii: Nazwa koloru – krótki opis charakteru i zastosowania. Przykład: "Terakota – ciepły, ziemisty ton doskonały na akcenty poduszkowe i ceramikę"]
+- **Nazwa koloru** – opis charakteru i zastosowania
+- **Nazwa koloru** – opis charakteru i zastosowania
+[5-6 kolorów]
 
 ### Materiały i tekstury
-[5 materiałów. Format: Nazwa materiału – zdanie o tym dlaczego pasuje do tego stylu. Użyj mianownika: "Drewno orzechowe", "Len i bawełna", "Ceramika", "Rattan", "Bouclé"]
+- **Nazwa materiału** – zdanie dlaczego pasuje do tego stylu
+[5 materiałów, mianownik: "Drewno orzechowe", "Len", "Ceramika", "Rattan", "Bouclé"]
 
 ### Meble i dekoracje do zobaczenia
-[6-8 konkretnych propozycji. Format: Nazwa przedmiotu – gdzie szukać (konkretne marki lub sklepy). Przykład: "Sofa w tkaninie bouclé w odcieniu ecru – HAY, Menu, Article, West Elm"]
+- **Nazwa przedmiotu** – gdzie szukać z linkami: Marka (https://adres.pl)
+[6-8 propozycji z prawdziwymi URL-ami do stron marek]
 
 ### Konta i magazyny do obserwowania
-[4-5 pozycji. Format: Nazwa konta lub magazynu – jedno zdanie dlaczego warto. Podaj prawdziwe, istniejące konta i publikacje.]
+- **Nazwa** (https://adres) – jedno zdanie dlaczego warto obserwować
+[4-5 pozycji z prawdziwymi URL-ami]
 
-### Jak zacząć projekt w tym stylu – krok po kroku
-[5 kroków numerowanych. Każdy krok: konkretna, praktyczna wskazówka pisana do kobiety w drugiej osobie liczby pojedynczej. Zacznij każdy krok od czasownika.]
+### Jak zacząć projekt w tym stylu
+1. **Zacznij od** [konkretna wskazówka pisana do kobiety]
+2. **Zainwestuj w** [konkretna wskazówka]
+3. **Dodaj** [konkretna wskazówka]
+4. **Zbuduj** [konkretna wskazówka]
+5. **Na koniec** [konkretna wskazówka]
 
-Pisz po polsku. Dbaj o styl i poprawność. Bądź konkretna i pomocna.`;
+Pisz po polsku. Dbaj o styl i poprawność. Używaj formatowania.`;
 
   const imageBlocks = images.map(img => ({
     type: 'image',
