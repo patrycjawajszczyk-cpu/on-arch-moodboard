@@ -19,24 +19,27 @@ ZNANE NAZWY: [2-4 znane szukalne nazwy po angielsku/polsku]
 TAGLINE: [jedno zdanie, max 12 słów]
 
 ### Co widać w Twoich wyborach
-[3-4 zdania – konkretne obserwacje z tych zdjęć]
+[3-4 zdania – konkretne obserwacje: kolory, materiały, nastrój które łączą te zdjęcia]
 
 ### Twój styl
-[3-4 zdania – ciepło, jak ekspertka do klientki]
+[3-4 zdania – ciepło i profesjonalnie, jak ekspertka do klientki]
 
 ### Paleta kolorów
-[5-6 kolorów z nazwami]
+[5-6 konkretnych kolorów z nazwami i krótkim komentarzem]
 
 ### Materiały i tekstury
-[5 materiałów z jednozdaniowym komentarzem]
+[5 konkretnych materiałów z jednozdaniowym komentarzem dlaczego pasują]
 
-### Gdzie szukać inspiracji
-[3-4 konkretne: Instagram, magazyny, marki, projektanci]
+### Meble i dekoracje do zobaczenia
+[Wymień 6-8 konkretnych propozycji: np. "Sofa bouclé w kolorze ecru – szukaj u: HAY, Menu, West Elm", "Wiklinowy fotel – Ikea JASSA lub vintage", "Lampa łukowa w mosiądzu – Frandsen, Anglepoise". Bądź konkretna z markami i miejscami zakupów.]
 
-### Jedna rada na start
-[Jedno konkretne działanie na ten tydzień]
+### Konta i magazyny do obserwowania
+[4-5 konkretnych: konta Instagram, magazyny online/print, strony z inspiracjami które idealnie reprezentują ten styl]
 
-Pisz po polsku. Bez gwiazdek. Bądź konkretna i ciepła.`;
+### Jak zacząć projekt w tym stylu – krok po kroku
+[5 konkretnych kroków od koncepcji do realizacji, np. "1. Zacznij od palety – wybierz 3 kolory bazowe i 1 akcent", "2. Zainwestuj najpierw w sofę i dywan bo nadają ton całemu wnętrzu" itd. Praktycznie i konkretnie.]
+
+Pisz po polsku. Bez gwiazdek. Bądź konkretna, ciepła i pomocna.`;
 
   const imageBlocks = images.map(img => ({
     type: 'image',
@@ -53,7 +56,7 @@ Pisz po polsku. Bez gwiazdek. Bądź konkretna i ciepła.`;
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
-        max_tokens: 1200,
+        max_tokens: 1800,
         messages: [{ role: 'user', content: [...imageBlocks, { type: 'text', text: prompt }] }]
       })
     });
