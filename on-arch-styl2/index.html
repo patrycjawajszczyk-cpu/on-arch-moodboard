@@ -188,8 +188,17 @@ function addFiles(list){
 function remove(i){URL.revokeObjectURL(urls[i]);files.splice(i,1);urls.splice(i,1);render();}
 function render(){
   var grid=document.getElementById("grid");
-  grid.innerHTML=urls.map(function(u,i){return "<div class='thumb'><img src='"+u+"'><button class='del' onclick='remove("+i+")'>&#215;</button></div>";}).join("");
-  if(files.length<6)grid.innerHTML+="<div class='add-more'><input type='file' accept='image/*' multiple onchange="addFiles(this.files);this.value=''"><span>+</span></div>";
+  grid.innerHTML=urls.map(function(u,i){return "<div class=\"thumb\"><img src=\""+u+"\"><button class=\"del\" onclick=\"remove("+i+")\">&times;</button></div>";}).join("");
+  if(files.length<6){
+    var addDiv=document.createElement("div");
+    addDiv.className="add-more";
+    var addInput=document.createElement("input");
+    addInput.type="file";addInput.accept="image/*";addInput.multiple=true;
+    addInput.onchange=function(){addFiles(this.files);this.value="";};
+    var addSpan=document.createElement("span");addSpan.textContent="+";
+    addDiv.appendChild(addInput);addDiv.appendChild(addSpan);
+    grid.appendChild(addDiv);
+  }
   var has=files.length>0;
   document.getElementById("grid").classList.toggle("hidden",!has);
   document.getElementById("count-txt").classList.toggle("hidden",!has);
