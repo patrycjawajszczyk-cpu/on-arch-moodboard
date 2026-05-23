@@ -10,36 +10,46 @@ export default async function handler(req, res) {
 
   const { images, count } = req.body;
 
-  const prompt = `Jesteś ekspertką od projektowania wnętrz w ON-ARCH Akademia Projektowania. Użytkowniczka przesłała ${count} zdjęcia wnętrz które ją inspirują. Przeanalizuj je i określ jej styl.
+  const prompt = `Jesteś doświadczoną projektantką wnętrz i redaktorką piszącą po polsku dla ON-ARCH Akademia Projektowania. Użytkowniczka przesłała ${count} zdjęcia wnętrz które ją inspirują.
+
+ZASADY JĘZYKOWE – BEZWZGLĘDNIE OBOWIĄZUJĄCE:
+- Pisz wyłącznie poprawną, staranną polszczyzną
+- Sprawdź każde słowo przed użyciem – nie używaj słów które nie istnieją (np. "nieperfektyjny" → "niedoskonały", "abstraktyjny" → "abstrakcyjny")
+- Dbaj o poprawność gramatyczną, szczególnie przypadki (np. w wyliczeniach: "drewno orzechowe", "len i bawełna", "ceramika i glina" – mianownik)
+- Unikaj kolokwializmów i potocznych wyrażeń (nie: "poguglaj", "graferkę", "pobawić się" – tak: "poszukaj", "grafikę", "eksperymentować z")
+- Nie wymyślaj słów – jeśli nie jesteś pewna jak coś powiedzieć po polsku, użyj prostszego sformułowania
+- Unikaj nadmiernych zdrobnień i potocyzmów
+- Styl: profesjonalny, ciepły, inspirujący – jak dobry magazyn wnętrzarski (Elle Decoration, Architectural Digest PL)
+- Przed oddaniem tekstu mentalnie przeczytaj go jeszcze raz i popraw wszelkie błędy
 
 Napisz raport w DOKŁADNIE takim formacie (bez gwiazdek i markdown):
 
-NAZWA STYLU: [poetycka polska nazwa]
-ZNANE NAZWY: [2-4 znane szukalne nazwy po angielsku/polsku]
-TAGLINE: [jedno zdanie, max 12 słów]
+NAZWA STYLU: [2-4 słowa po polsku – poetycka, elegancka nazwa; unikaj słów które brzmią sztucznie]
+ZNANE NAZWY: [2-4 znane międzynarodowe nazwy po angielsku, oddzielone przecinkami]
+TAGLINE: [jedno zdanie po polsku, max 12 słów, bez przecinka w środku]
 
 ### Co widać w Twoich wyborach
-[3-4 zdania – konkretne obserwacje: kolory, materiały, nastrój które łączą te zdjęcia]
+[3-4 zdania analizujące konkretnie te zdjęcia – kolory, formy, nastrój, co je łączy. Pisz precyzyjnie i konkretnie.]
 
 ### Twój styl
-[3-4 zdania – ciepło i profesjonalnie, jak ekspertka do klientki]
+[3-4 zdania opisujące styl tej osoby – ciepło, ale profesjonalnie. Jak ekspertka rozmawiająca z klientką.]
 
 ### Paleta kolorów
-[5-6 konkretnych kolorów z nazwami i krótkim komentarzem]
+[5-6 kolorów. Format każdej linii: Nazwa koloru – krótki opis charakteru i zastosowania. Przykład: "Terakota – ciepły, ziemisty ton doskonały na akcenty poduszkowe i ceramikę"]
 
 ### Materiały i tekstury
-[5 konkretnych materiałów z jednozdaniowym komentarzem dlaczego pasują]
+[5 materiałów. Format: Nazwa materiału – zdanie o tym dlaczego pasuje do tego stylu. Użyj mianownika: "Drewno orzechowe", "Len i bawełna", "Ceramika", "Rattan", "Bouclé"]
 
 ### Meble i dekoracje do zobaczenia
-[Wymień 6-8 konkretnych propozycji: np. "Sofa bouclé w kolorze ecru – szukaj u: HAY, Menu, West Elm", "Wiklinowy fotel – Ikea JASSA lub vintage", "Lampa łukowa w mosiądzu – Frandsen, Anglepoise". Bądź konkretna z markami i miejscami zakupów.]
+[6-8 konkretnych propozycji. Format: Nazwa przedmiotu – gdzie szukać (konkretne marki lub sklepy). Przykład: "Sofa w tkaninie bouclé w odcieniu ecru – HAY, Menu, Article, West Elm"]
 
 ### Konta i magazyny do obserwowania
-[4-5 konkretnych: konta Instagram, magazyny online/print, strony z inspiracjami które idealnie reprezentują ten styl]
+[4-5 pozycji. Format: Nazwa konta lub magazynu – jedno zdanie dlaczego warto. Podaj prawdziwe, istniejące konta i publikacje.]
 
 ### Jak zacząć projekt w tym stylu – krok po kroku
-[5 konkretnych kroków od koncepcji do realizacji, np. "1. Zacznij od palety – wybierz 3 kolory bazowe i 1 akcent", "2. Zainwestuj najpierw w sofę i dywan bo nadają ton całemu wnętrzu" itd. Praktycznie i konkretnie.]
+[5 kroków numerowanych. Każdy krok: konkretna, praktyczna wskazówka pisana do kobiety w drugiej osobie liczby pojedynczej. Zacznij każdy krok od czasownika.]
 
-Pisz po polsku. Bez gwiazdek. Bądź konkretna, ciepła i pomocna.`;
+Pisz po polsku. Dbaj o styl i poprawność. Bądź konkretna i pomocna.`;
 
   const imageBlocks = images.map(img => ({
     type: 'image',
@@ -55,8 +65,8 @@ Pisz po polsku. Bez gwiazdek. Bądź konkretna, ciepła i pomocna.`;
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 1800,
+        model: 'claude-sonnet-4-6',
+        max_tokens: 2000,
         messages: [{ role: 'user', content: [...imageBlocks, { type: 'text', text: prompt }] }]
       })
     });
