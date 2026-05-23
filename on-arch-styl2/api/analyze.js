@@ -82,7 +82,10 @@ Pisz po polsku. Dbaj o styl i poprawność. Używaj formatowania.`;
       })
     });
     const data = await response.json();
-    if (!response.ok) throw new Error(data?.error?.message || `HTTP ${response.status}`);
+    if (!response.ok) {
+      const errMsg = data?.error?.message || data?.error?.type || (typeof data?.error === 'string' ? data.error : null) || `HTTP ${response.status}`;
+      throw new Error(errMsg);
+    }
     res.status(200).json(data);
   } catch (e) {
     res.status(500).json({ error: e.message });
